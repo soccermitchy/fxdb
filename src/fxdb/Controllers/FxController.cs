@@ -39,6 +39,7 @@ namespace fxdb.Models
         [HttpPost]
         public void Post([FromBody]EffectItem value)
         {
+            value.id = null;
             EffectItems.Add(value);
         }
 

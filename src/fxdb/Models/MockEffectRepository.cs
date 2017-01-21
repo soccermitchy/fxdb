@@ -34,9 +34,19 @@ namespace fxdb.Models
         public void Add(EffectItem item)
         {
             var key = _effects.Count;
-            while (true) // keep trying different key IDs until we get one we can use... in an ideal situation (*cough ef cough* this will be done for us.
+            while (true) // keep trying different key IDs until we get one we can use... in an ideal situation (*cough ef cough*) this will be done for us.
             {
-                if (_effects.TryAdd(key, item)) return;
+                if (!_effects.ContainsKey(key))
+                {
+                    item = new EffectItem
+                    {
+                        id = key,
+                        name = item.name,
+                        path = item.path
+                    };
+                    _effects.TryAdd(key, item);
+                    return;
+                }
                 key++;
             }
         }
@@ -57,7 +67,7 @@ namespace fxdb.Models
 
         public void Update(EffectItem item)
         {
-            _effects[item.id] = item;
+            if (item.id != null) _effects[item.id.Value] = item;
         }
     }
 }

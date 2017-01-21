@@ -7,7 +7,7 @@ namespace fxdb.Models
 {
     public class EffectItem
     {
-        public int id;
+        public int? id;
         public string name;
         public string path;
 

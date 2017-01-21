@@ -40,7 +40,6 @@ namespace fxdb
 
             services.AddMvc();
 
-
             // DI for fxdb - Repositories
             services.AddSingleton<IEffectRepository, MockEffectRepository>();
         }
@@ -54,6 +53,9 @@ namespace fxdb
             app.UseApplicationInsightsRequestTelemetry();
 
             app.UseApplicationInsightsExceptionTelemetry();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseMvc();
         }

@@ -19,7 +19,7 @@
             <tr>
                 <th style="width: 80px;">ID</th>
                 <th>Name</th>
-                <th>Path</th>
+                <th>Path - REMOVE ME FOR PRODUCTION</th>
             </tr>
             {{#.}}
             <tr>
@@ -30,7 +30,20 @@
             {{/.}}
         </table>
     </div>
-
+</script>
+<script id="template-upload-page" type="x-tmpl-mustache">
+    <form id="upload-form">
+        <div class="form-group">
+            <label for="titleUploadFormBox">Effect Title</label>
+            <input type="text" class="form-control" id="titleUploadFormBox" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="effectUploadFileBox">Effect File</label>
+            <input type="file" id="effectUploadFileBox">
+            <p class="help-block">Supported formats: mp3, ogg</p>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 </script>
 <!-- Navigation bar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -48,6 +61,7 @@
             <ul class="nav navbar-nav">
                 <li id="navbar-button-home"><a href="#">Home</a></li>
                 <li id="navbar-button-contact"><a href="#contact">Contact</a></li>
+                <li id="navbar-button-upload"><a href="#upload">Upload</a></li>
             </ul>
         </div>
     </div>

@@ -4,6 +4,7 @@ function resetState() {
     $("#content-container").empty();
 }
 
+// Hash routing
 routie("",
     function () { // Home
         resetState();
@@ -33,3 +34,33 @@ routie("contact",
         $("#content-container").html(rendered);
         console.log("Contact route");
     });
+
+routie("upload",
+    function () {
+        resetState();
+        $("#navbar-button-upload").addClass("active");
+        var template = $("#template-upload-page").html();
+        Mustache.parse(template);
+        var rendered = Mustache.render(template, {});
+        $("#content-container").html(rendered);
+        console.log("Upload route");
+    });
+
+// Form hooks
+$("#upload-form").submit(function (e) { // thanks, stackoverflow
+    data = new FormData();
+    data.append('title', $("#titleUploadFormBox").val());
+    data.append('file', $("#effectUploadFileBox")[0].files[0]);
+
+    $.ajax({
+        url: '/api/fx',
+        data: data,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        mineType: 'multipart/form-data',
+        success: function (data) {
+            alert("Hey, it successfully uploaded... TODO: effect info page")
+        }
+    });
+})

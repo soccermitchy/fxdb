@@ -43,6 +43,7 @@ namespace fxdb.Models
         [HttpPost]
         public async Task<EffectItem> Post(IFormFile file)
         {
+            if (file == null) throw new ArgumentNullException("File is null");
             var title = "test";
             var item = new EffectItem() {name = title};
             item = EffectItems.Add(item); // this is done so we can get an item ID

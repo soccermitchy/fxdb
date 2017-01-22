@@ -45,7 +45,20 @@ routie("upload",
         $("#content-container").html(rendered);
         console.log("Upload route");
     });
-
+routie("fx/info/:id",
+    function (id) {
+        resetState();
+        $.getJSON({
+            url: '/api/fx/' + id,
+            cache: false,
+            success: function (data) {
+                var template = $("#template-effect-info").html();
+                Mustache.parse(template);
+                var rendered = Mustache.render(template, data);
+                $("#content-container").html(rendered);
+            }
+        })
+    });
 // Form hooks
 $("#upload-form").submit(function (e) { // thanks, stackoverflow
     data = new FormData();
@@ -60,7 +73,11 @@ $("#upload-form").submit(function (e) { // thanks, stackoverflow
         type: 'POST',
         mineType: 'multipart/form-data',
         success: function (data) {
-            alert("Hey, it successfully uploaded... TODO: effect info page")
+            window.location.replace("#fx/info/" + data.id);
+        },
+        error: function (jqxhr, textStatus, errorThrown) {
+            alert("Unexpected error: " + textStatus + " - " + errorThrown);
         }
     });
 })
+

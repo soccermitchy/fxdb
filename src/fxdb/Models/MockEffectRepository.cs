@@ -16,7 +16,7 @@ namespace fxdb.Models
                 {
                     id = 0,
                     name = "Test Effect",
-                    path = "/test.mp3"
+                    path = "storage/1"
                 });
             Add(new EffectItem
             {

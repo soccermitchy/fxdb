@@ -30,8 +30,8 @@ namespace fxdb.Models
         }
 
         // GET api/fx/<int id>
-        [HttpGet("{id}")]
-        public EffectItem Get(int id)
+        [HttpGet("info/{id:regex(\\d+)}")]
+        public EffectItem GetInfo(int id)
         {
             var item = EffectItems.Find(id);
             if (item != null) return item.StripPath();
@@ -39,6 +39,17 @@ namespace fxdb.Models
             return null;
         }
 
+        [HttpGet("play/{id:regex(\\d+)}")]
+        public async Task<string> GetFile(int id) {
+            var item = EffectItems.Find(id);
+            if (item == null) {
+                Response.StatusCode = 404;
+                return null;
+            }
+            using (var streamReader = new StreamReader(new FileStream(item.path, FileMode.Open), false)) {
+                return await streamReader.ReadToEndAsync();
+            }
+        }
         // POST api/fx
         [HttpPost]
         public async Task<EffectItem> Post(IFormFile file)

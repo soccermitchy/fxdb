@@ -31,7 +31,7 @@ namespace fxdb.Models
             return _effects.Values;
         }
 
-        public void Add(EffectItem item)
+        public EffectItem Add(EffectItem item)
         {
             var key = _effects.Count;
             while (true) // keep trying different key IDs until we get one we can use... in an ideal situation (*cough ef cough*) this will be done for us.
@@ -45,7 +45,7 @@ namespace fxdb.Models
                         path = item.path
                     };
                     _effects.TryAdd(key, item);
-                    return;
+                    return item;
                 }
                 key++;
             }

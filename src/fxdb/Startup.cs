@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using fxdb.Models;
@@ -15,6 +16,8 @@ namespace fxdb
     {
         public Startup(IHostingEnvironment env)
         {
+            if (!Directory.Exists("storage")) Directory.CreateDirectory("storage");
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)

@@ -7,7 +7,7 @@ namespace fxdb.Models
 {
     public interface IEffectRepository
     {
-        void Add(EffectItem item);
+        EffectItem Add(EffectItem item);
         IEnumerable<EffectItem> GetAll();
         EffectItem Find(int key);
         EffectItem Remove(int key);

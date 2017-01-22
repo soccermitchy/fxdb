@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,7 +25,8 @@ namespace fxdb.Models
         public IEnumerable<EffectItem> Get()
         {
             var itemSet = EffectItems.GetAll();
-            return itemSet.Select(e => e.StripPath());
+            //return itemSet.Select(e => e.StripPath());
+            return itemSet;
         }
 
         // GET api/fx/<int id>
@@ -37,10 +41,18 @@ namespace fxdb.Models
 
         // POST api/fx
         [HttpPost]
-        public void Post([FromBody]EffectItem value)
+        public async Task<EffectItem> Post(IFormFile file)
         {
-            value.id = null;
-            EffectItems.Add(value);
+            var title = "test";
+            var item = new EffectItem() {name = title};
+            item = EffectItems.Add(item); // this is done so we can get an item ID
+            item.path = "storage/" + item.id;
+            EffectItems.Update(item);
+            using (var fileStream = new FileStream(item.path, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+            return item.StripPath();
         }
 
         // DELETE api/fx/5

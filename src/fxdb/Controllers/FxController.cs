@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using libaudiomagic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -40,22 +41,19 @@ namespace fxdb.Models
         }
 
         [HttpGet("play/{id:regex(\\d+)}")]
-        public async Task<string> GetFile(int id) {
+        public FileStreamResult GetFile(int id) {
             var item = EffectItems.Find(id);
             if (item == null) {
                 Response.StatusCode = 404;
                 return null;
             }
-            using (var streamReader = new StreamReader(new FileStream(item.path, FileMode.Open), false)) {
-                return await streamReader.ReadToEndAsync();
-            }
+            return File(new FileStream(item.path, FileMode.Open), Magic.DetermineMimeType(item.path));
         }
         // POST api/fx
         [HttpPost]
-        public async Task<EffectItem> Post(IFormFile file)
+        public async Task<EffectItem> Post([FromBody]string title, IFormFile file)
         {
             if (file == null) throw new ArgumentNullException("File is null");
-            var title = "test";
             var item = new EffectItem() {name = title};
             item = EffectItems.Add(item); // this is done so we can get an item ID
             item.path = "storage/" + item.id;
@@ -64,7 +62,12 @@ namespace fxdb.Models
             {
                 await file.CopyToAsync(fileStream);
             }
-            return item.StripPath();
+            if (Magic.DetermineMimeType("storage/" + item.id) != null) return item.StripPath();
+
+            Response.StatusCode = 415; // Unsupported media type
+            EffectItems.Remove(item.id);
+            System.IO.File.Delete("storage/" + item.id);
+            return null;
         }
 
         // DELETE api/fx/5

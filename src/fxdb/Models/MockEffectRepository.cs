@@ -60,8 +60,14 @@ namespace fxdb.Models
 
         public EffectItem Remove(int key)
         {
+            return Remove((int?) key);
+        }
+
+        public EffectItem Remove(int? key)
+        {
+            if (!key.HasValue) return null;
             EffectItem item;
-            _effects.TryRemove(key, out item);
+            _effects.TryRemove(key.Value, out item);
             return item;
         }
 

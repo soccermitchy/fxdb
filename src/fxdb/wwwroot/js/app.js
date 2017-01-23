@@ -49,7 +49,7 @@ routie("fx/info/:id",
     function (id) {
         resetState();
         $.getJSON({
-            url: '/api/fx/' + id,
+            url: "/api/fx/info/" + id,
             cache: false,
             success: function (data) {
                 var template = $("#template-effect-info").html();
@@ -62,16 +62,16 @@ routie("fx/info/:id",
 // Form hooks
 $("#upload-form").submit(function (e) { // thanks, stackoverflow
     data = new FormData();
-    data.append('title', $("#titleUploadFormBox").val());
-    data.append('file', $("#effectUploadFileBox")[0].files[0]);
+    data.append("title", $("#titleUploadFormBox").val());
+    data.append("file", $("#effectUploadFileBox")[0].files[0]);
 
     $.ajax({
-        url: '/api/fx',
+        url: "/api/fx",
         data: data,
         processData: false,
         contentType: false,
-        type: 'POST',
-        mineType: 'multipart/form-data',
+        type: "POST",
+        mineType: "multipart/form-data",
         success: function (data) {
             window.location.replace("#fx/info/" + data.id);
         },

@@ -11,6 +11,7 @@ namespace fxdb.Models
         IEnumerable<EffectItem> GetAll();
         EffectItem Find(int key);
         EffectItem Remove(int key);
+        EffectItem Remove(int? key);
         void Update(EffectItem item);
     }
 }

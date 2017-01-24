@@ -16,12 +16,12 @@ namespace fxdb.Models
                 {
                     id = 0,
                     name = "Test Effect",
-                    path = "storage/1"
+                    path = "storage/2"
                 });
             Add(new EffectItem
             {
                 id = 1,
-                name = "Test Effect 2",
+                name = "Test Effect 2 - This should not play",
                 path = "/test2.mp3"
             });
         }

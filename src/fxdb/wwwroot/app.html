@@ -19,13 +19,13 @@
             <tr>
                 <th style="width: 80px;">ID</th>
                 <th>Name</th>
-                <th>Path - REMOVE ME FOR PRODUCTION</th>
+                <th>Play Sound</th>
             </tr>
             {{#.}}
             <tr>
                 <td>{{id}}</td>
                 <td><a href="#fx/info/{{id}}">{{name}}</a></td>
-                <td>{{path}}</td>
+                <td><audio src="/api/fx/play/{{id}}" controls><a href="/api/fx/play/{{id}}">Download</a></audio></td>
             </tr>
             {{/.}}
         </table>

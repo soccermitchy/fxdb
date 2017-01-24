@@ -64,7 +64,7 @@ namespace fxdb.Models
         }
         // POST api/fx
         [HttpPost]
-        public async Task<EffectItem> Post([FromBody]string title, IFormFile file)
+        public async Task<EffectItem> Post(string title, IFormFile file)
         {
             if (file == null) throw new ArgumentNullException("File is null");
             var item = new EffectItem() {name = title};

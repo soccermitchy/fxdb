@@ -32,8 +32,8 @@ namespace fxdb.Models
             return itemSet;
         }
 
-        // GET api/fx/<int id>
-        [HttpGet("info/{id:regex(\\d+)}")]
+        // GET api/fx/<int Id>
+        [HttpGet("info/{Id:regex(\\d+)}")]
         public EffectItem GetInfo(int id)
         {
             var item = _effectItems.Find(id);
@@ -42,7 +42,7 @@ namespace fxdb.Models
             return null;
         }
 
-        [HttpGet("play/{id:regex(\\d+)}")]
+        [HttpGet("play/{Id:regex(\\d+)}")]
         public IActionResult GetFile(int id) {
             var item = _effectItems.Find(id);
             if (item == null) {
@@ -64,29 +64,29 @@ namespace fxdb.Models
         }
         // POST api/fx
         [HttpPost]
-        public async Task<EffectItem> Post([FromBody]string title, IFormFile file)
+        public async Task<EffectItem> Post(string title, IFormFile file)
         {
             if (file == null) throw new ArgumentNullException("File is null");
             var item = new EffectItem() {name = title};
             item = _effectItems.Add(item); // this is done so we can get an item ID
-            item.path = "storage/" + item.id;
+            item.path = "storage/" + item.Id;
             _effectItems.Update(item);
             using (var fileStream = new FileStream(item.path, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
             }
-            var m = Magic.DetermineMimeType("storage/" + item.id);
+            var m = Magic.DetermineMimeType("storage/" + item.Id);
             _logger.LogInformation("magic result: " + m);
             if (m != null) return item.StripPath();
 
             Response.StatusCode = 415; // Unsupported media type
-            _effectItems.Remove(item.id);
-            System.IO.File.Delete("storage/" + item.id);
+            _effectItems.Remove(item.Id);
+            System.IO.File.Delete("storage/" + item.Id);
             return null;
         }
 
         // DELETE api/fx/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{Id}")]
         public void Delete(int id)
         {
             _effectItems.Remove(id);

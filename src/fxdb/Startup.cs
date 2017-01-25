@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.EntityFrameworkCore;
 namespace fxdb
 {
     public class Startup
@@ -39,13 +39,18 @@ namespace fxdb
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
+            var connection = @"Data Source=fxdb.sqlite";
+            services.AddDbContext<FxContext>(options => options.UseSqlite(connection));
+
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-
             services.AddMvc();
 
             // DI for fxdb - Repositories
-            services.AddSingleton<IEffectRepository, MockEffectRepository>();
+            //services.AddSingleton<IEffectRepository, MockEffectRepository>();
+            services.AddSingleton<IEffectRepository, EntityFrameworkEffectRepository>();
+
+
             services.Configure<FormOptions>(x =>
             {
                 x.ValueLengthLimit = int.MaxValue;

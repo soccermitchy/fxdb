@@ -14,13 +14,13 @@ namespace fxdb.Models
         {
             Add(new EffectItem
                 {
-                    id = 0,
+                    Id = 0,
                     name = "Test Effect",
                     path = "storage/2"
                 });
             Add(new EffectItem
             {
-                id = 1,
+                Id = 1,
                 name = "Test Effect 2 - This should not play",
                 path = "/test2.mp3"
             });
@@ -40,7 +40,7 @@ namespace fxdb.Models
                 {
                     item = new EffectItem
                     {
-                        id = key,
+                        Id = key,
                         name = item.name,
                         path = item.path
                     };
@@ -73,7 +73,7 @@ namespace fxdb.Models
 
         public void Update(EffectItem item)
         {
-            if (item.id != null) _effects[item.id.Value] = item;
+            _effects[item.Id] = item;
         }
     }
 }

@@ -73,7 +73,7 @@ $("#upload-form").submit(function (e) { // thanks, stackoverflow
         type: "POST",
         mineType: "multipart/form-data",
         success: function (data) {
-            window.location.replace("#fx/info/" + data.Id);
+            window.location.replace("#fx/info/" + data.id);
         },
         error: function (jqxhr, textStatus, errorThrown) {
             alert("Unexpected error: " + textStatus + " - " + errorThrown);

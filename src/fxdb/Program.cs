@@ -30,6 +30,7 @@ namespace fxdb
             }
 
             var host = new WebHostBuilder()
+                .UseConfiguration(builder.Build())
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()

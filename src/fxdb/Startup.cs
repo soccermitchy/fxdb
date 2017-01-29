@@ -42,7 +42,7 @@ namespace fxdb
             var connection = Configuration.GetConnectionString("DefaultConnection") ?? @"Data Source=fxdb.sqlite";
 
             if (connection.Contains("sqlite")) {
-                Console.WriteLine("Note - Currently using MySQL, try to keep this to dev only...");
+                Console.WriteLine("Note - Currently using SQLite, try to keep this to dev only...");
                 services.AddDbContext<FxContext>(options => options.UseSqlite(connection));
             } else {
                 services.AddDbContext<FxContext>(options => options.UseMySql(connection));

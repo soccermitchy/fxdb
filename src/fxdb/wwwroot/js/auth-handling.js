@@ -2,10 +2,10 @@
 var config = {
     authority: "https://auth.nofla.me",
     client_id: "fxdb.client",
-    redirect_uri: "http://localhost:5002/callback.html",
+    redirect_uri: "https://fxdb.nofla.me/callback.html",
     response_type: "id_token token",
     scope: "openid profile email fxdb.read fxdb.write",
-    post_logout_redirect_uri: "http://localhost:5002/"
+    post_logout_redirect_uri: "https://fxdb.nofla.me/"
 };
 var mgr = new Oidc.UserManager(config);
 function doUserLoginCheck() {

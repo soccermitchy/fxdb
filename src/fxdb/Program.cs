@@ -30,7 +30,8 @@ namespace fxdb
             }
 
             var host = new WebHostBuilder()
-                .UseConfiguration(builder.Build())
+                //.UseConfiguration(builder.Build())
+                .UseUrls("http://localhost:5002")
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()

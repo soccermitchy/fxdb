@@ -1,3 +1,17 @@
+var user = doUserLoginCheck();
+
+// Set navbar right side up
+$(document)
+    .ready(function() {
+        var template = $("#template-navbar-userinfo").html();
+        Mustache.parse(template);
+        mgr.getUser()
+            .then(function (user) {
+                var rendered = Mustache.render(template, user.profile.name);
+                $("#navbar-right-userinfo").html(rendered);
+            });
+    });
+
 // Empty #content-container, set all navbar to inactive.
 function resetState() {
     $("#navbar>ul>li.active").removeClass("active");
@@ -51,33 +65,34 @@ routie("fx/info/:id",
         $.getJSON({
             url: "/api/fx/info/" + id,
             cache: false,
-            success: function (data) {
+            success: function(data) {
                 var template = $("#template-effect-info").html();
                 Mustache.parse(template);
                 var rendered = Mustache.render(template, data);
                 $("#content-container").html(rendered);
             }
-        })
+        });
     });
+
 // Form hooks
-$("#upload-form").submit(function (e) { // thanks, stackoverflow
-    data = new FormData();
-    data.append("title", $("#titleUploadFormBox").val());
-    data.append("file", $("#effectUploadFileBox")[0].files[0]);
+$("#upload-form")
+    .submit(function(e) { // thanks, stackoverflow
+        data = new FormData();
+        data.append("title", $("#titleUploadFormBox").val());
+        data.append("file", $("#effectUploadFileBox")[0].files[0]);
 
-    $.ajax({
-        url: "/api/fx",
-        data: data,
-        processData: false,
-        contentType: false,
-        type: "POST",
-        mineType: "multipart/form-data",
-        success: function (data) {
-            window.location.replace("#fx/info/" + data.id);
-        },
-        error: function (jqxhr, textStatus, errorThrown) {
-            alert("Unexpected error: " + textStatus + " - " + errorThrown);
-        }
+        $.ajax({
+            url: "/api/fx",
+            data: data,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            mineType: "multipart/form-data",
+            success: function(data) {
+                window.location.replace("#fx/info/" + data.id);
+            },
+            error: function(jqxhr, textStatus, errorThrown) {
+                alert("Unexpected error: " + textStatus + " - " + errorThrown);
+            }
+        });
     });
-})
-

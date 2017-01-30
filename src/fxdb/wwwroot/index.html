@@ -9,28 +9,31 @@
     
 </head>
 <body>
+    <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <div class="site-wrapper">
         <div class="site-wrapper-inner">
             <div class="cover-container">
                 <div class="masthead clearfix">
-                    
+
                     <div class="inner">
                         <h3 class="masthead-brand">fxdb</h3>
                     </div>
                 </div>
             </div>
-            
+
             <div class="inner cover">
                 <h1 class="cover-heading">fxdb by Mitchell Monahan</h1>
                 <p class="lead">fxdb is a sound effect database created to make finding good sound effects easy.</p>
-                
+
                 <p class="lead">
-                    <a href="/app.html" class="btn btn-lg btn-default">Sign in with NoFlame SSO [dev note: currently goes directly to app]</a>
+                    <a href="#" class="btn btn-lg btn-default" id="#login-button" onclick="login()">Sign in with NoFlame SSO</a>
                 </p>
             </div>
         </div>
     </div>
+    <script src="/js/oidc-client.js"></script>
+    <script src="/js/auth-handling.js"></script>
 </body>
 </html>

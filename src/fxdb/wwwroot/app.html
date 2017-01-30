@@ -49,7 +49,19 @@
     <div class="row">
         <b>Title: </b>{{name}}
     </div>
+    <div class="row">
+        <audio src="/api/fx/play/{{id}}" controls><a href="/api/fx/play/{{id}}">Download</a></audio>
+    </div>
 </script>
+<script id="template-navbar-userinfo" type="x-tmpl-mustache">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, {{.}}!<span class="caret"></span></a>
+    <ul class="dropdown-menu">
+        <li><a href="https://auth.nofla.me/Mange">Change password</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a id="logout-link" onclick="logout()">Logout</a></li>
+    </ul>
+</script>
+
 <!-- Navigation bar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -68,6 +80,10 @@
                 <li id="navbar-button-contact"><a href="#contact">Contact</a></li>
                 <li id="navbar-button-upload"><a href="#upload">Upload</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right" id="navbar-right">
+                <li class="dropdown" id="navbar-right-userinfo">
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -79,9 +95,11 @@
 
 <!-- Javascript - placed at end so other stuff loads faster -->
 <script src="/js/routie.js"></script>
+<script src="/js/oidc-client.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.js" integrity="sha256-XDU6Po3hKjdQXJHRrKrWlIF/E6y6BBgV5eiqZSYePpo=" crossorigin="anonymous"></script>
 <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="/js/auth-handling.js"></script>
 <script src="/js/app.js"></script>
 
 </body>

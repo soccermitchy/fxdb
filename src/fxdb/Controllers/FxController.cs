@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 namespace fxdb.Models
 {
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Policy="AllowedDomain")]
     public class FxController : Controller
     {
         

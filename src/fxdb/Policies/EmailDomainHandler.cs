@@ -15,7 +15,13 @@ namespace fxdb.Policies {
                 return Task.CompletedTask;
             }
             foreach(var domain in requirement.AuthorizedDomains) {
-                if (email.Host == domain) context.Succeed(requirement);
+
+                if (email.Host == domain)
+                {
+                    Console.WriteLine(domain + " = " + email.Host);
+                    context.Succeed(requirement);
+                }
+                Console.WriteLine(domain + " != " + email.Host);
             }
             return Task.CompletedTask;
         }

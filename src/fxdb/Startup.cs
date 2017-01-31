@@ -11,6 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using fxdb.Policies;
+using Microsoft.AspNetCore.Authorization;
+
 namespace fxdb
 {
     public class Startup
@@ -56,12 +59,20 @@ namespace fxdb
             // DI for fxdb - Repositories
             //services.AddSingleton<IEffectRepository, MockEffectRepository>();
             services.AddSingleton<IEffectRepository, EntityFrameworkEffectRepository>();
+        
+            // DI for fxdb - Policies/Policy handlers
+            services.AddSingleton<IAuthorizationHandler, EmailDomainHandler >();
 
 
             services.Configure<FormOptions>(x =>
             {
                 x.ValueLengthLimit = int.MaxValue;
                 x.MultipartBodyLengthLimit = int.MaxValue;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AllowedDomain", policy => policy.Requirements.Add(new EmailDomainRequirement(new List<string> { "calvaryftl.org", "student.ccaeagles.org" })));
             });
         }
 

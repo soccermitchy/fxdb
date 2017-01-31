@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace fxdb.Controllers {
     [Route("api/userinfo")]
-    [Authorize]
+    [Authorize(Policy="AllowedDomain")]
     public class UserInfoController : ControllerBase {
         [HttpGet("claims")]
         public IActionResult GetClaims() {

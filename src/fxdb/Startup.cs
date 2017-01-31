@@ -71,6 +71,12 @@ namespace fxdb
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            {
+                Authority = "https://auth.nofla.me",
+                RequireHttpsMetadata = true,
+                ApiName = "fxdb.client"
+            });
             app.UseApplicationInsightsRequestTelemetry();
 
             app.UseApplicationInsightsExceptionTelemetry();

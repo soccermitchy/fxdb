@@ -24,7 +24,8 @@
     "Microsoft.EntityFrameworkCore.Sqlite": "1.1.0",
     "Microsoft.EntityFrameworkCore.Sqlite.Design": "1.1.0",
     "Pomelo.EntityFrameworkCore.MySql": "1.1.1-prerelease-10016",
-    "IdentityServer4.AccessTokenValidation":  "1.0.2"  
+    "IdentityServer4.AccessTokenValidation":  "1.0.2",
+    "System.Net.Mail": "1.0.0-rtm-00002"
   },
 
   "tools": {

@@ -18,13 +18,20 @@ function resetState() {
     $("#content-container").empty();
 }
 
+function setXhrAuthorizationHeader(xhr) {
+    mgr.getUser()
+        .then(function(user) {
+            xhr.setRequestHeader("Authorization", "Bearer " + user.access_token);
+        });
+}
 // Hash routing
 routie("",
     function () { // Home
         resetState();
         $("#navbar-button-home").addClass("active");
-        $.getJSON({
+        $.ajax({
             url: "/api/fx",
+            dataType: "json",
             cache: false,
             success: function (data) {
                 console.log(data);
@@ -33,7 +40,8 @@ routie("",
                 Mustache.parse(template);
                 var rendered = Mustache.render(template, data);
                 $("#content-container").html(rendered);
-            }
+            },
+            beforeSend: setXhrAuthorizationHeader
         });
         console.log("Home route");
     });
@@ -62,15 +70,17 @@ routie("upload",
 routie("fx/info/:id",
     function (id) {
         resetState();
-        $.getJSON({
+        $.ajax({
             url: "/api/fx/info/" + id,
             cache: false,
+            dataType: "json",
             success: function(data) {
                 var template = $("#template-effect-info").html();
                 Mustache.parse(template);
                 var rendered = Mustache.render(template, data);
                 $("#content-container").html(rendered);
-            }
+            },
+            beforeSend: setXhrAuthorizationHeader
         });
     });
 
@@ -93,6 +103,7 @@ $("#upload-form")
             },
             error: function(jqxhr, textStatus, errorThrown) {
                 alert("Unexpected error: " + textStatus + " - " + errorThrown);
-            }
+            },
+            beforeSend: setXhrAuthorizationHeader
         });
     });

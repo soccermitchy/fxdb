@@ -15,13 +15,12 @@ namespace fxdb
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EffectItem>()
+            /*modelBuilder.Entity<EffectItem>()
                         .HasIndex(e => e.Id)
                         .IsUnique();
-            modelBuilder.HasSequence<int>("EffectIds");
             modelBuilder.Entity<EffectItem>()
-                        .Property(e => e.Id)
-                        .HasDefaultValueSql("NEXT VALUE FOR EffectIds");
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();*/
         }
         public DbSet<EffectItem> EffectItems { get; set; }
     }

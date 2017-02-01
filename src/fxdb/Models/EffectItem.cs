@@ -9,8 +9,8 @@ namespace fxdb.Models
 {
     public class EffectItem
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string name { get; set; }
         public string path { get; set; }

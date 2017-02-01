@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using libaudiomagic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,10 @@ using Microsoft.Extensions.Logging;
 namespace fxdb.Models
 {
     [Route("api/[controller]")]
+    [Authorize(Policy="AllowedDomain")]
     public class FxController : Controller
     {
+        
         private IEffectRepository _effectItems { get; set; }
         private readonly ILogger _logger;
         public FxController(IEffectRepository effects, ILogger<FxController> logger)
